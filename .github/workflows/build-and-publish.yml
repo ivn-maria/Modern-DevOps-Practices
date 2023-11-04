@@ -21,7 +21,7 @@ jobs:
     - name: Snyk Scan
       working-directory: §{{github.workspace}}/src 
       run: |
-        pip install -r requirements.txt 
+        pip install -r src/requirements.txt 
         npm install -g snyk
         snyk auth §{{secrets.SNYK_TOKEN}}
         snyk test
