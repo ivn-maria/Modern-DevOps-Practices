@@ -11,7 +11,7 @@ env:
   SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
 jobs:
-  Build:
+  SnykScan:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,12 +20,6 @@ jobs:
 
     - name: Install Snyk CLI
       run: npm install -g snyk@latest
-      
-    - name: Login to Docker Hub
-      run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-
-    - name: Build Docker image
-      run: docker build -t ivnmaria/classwork-1:latest .
 
     - name: Install dependecies
       run: pip install -r src/requirements.txt
@@ -34,6 +28,19 @@ jobs:
       run: snyk test --all-projects
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+  
+  Build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2  
+      
+    - name: Login to Docker Hub
+      run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+
+    - name: Build Docker image
+      run: docker build -t ivnmaria/classwork-1:latest .
 
     - name: Push Docker image
       run: docker push ivnmaria/classwork-1
