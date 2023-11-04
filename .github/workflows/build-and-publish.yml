@@ -60,7 +60,7 @@ jobs:
     - name: Trivy Scan
       uses: aquasecurity/trivy-action@master
       with:
-        image-ref: ivnmaria/classwork-1:latest
+        image-ref: "python_app:1.0"
         format: 'table'
         exit-code: '1'
         ignore-unfixed: true
