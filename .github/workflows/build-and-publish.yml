@@ -26,6 +26,9 @@ jobs:
 
     - name: Build Docker image
       run: docker build -t ivnmaria/classwork-1:latest .
+
+    - name: Install dependecies
+      run: pip install -r src/requirements.txt
       
     - name: Snyk Scan
       run: snyk test --all-projects
