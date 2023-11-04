@@ -66,6 +66,7 @@ jobs:
         ignore-unfixed: true
         vuln-type: "os,library"
         severity: "CRITICAL,HIGH"
+        debug: true
 
     - name: Push Docker image
       run: docker push ivnmaria/classwork-1
