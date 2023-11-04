@@ -6,10 +6,10 @@ on:
       - main
 
 env:
+  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
   DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
   DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
-  SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
 jobs:
   SonarCloudScan:
@@ -45,6 +45,7 @@ jobs:
   
   Build:
     runs-on: ubuntu-latest
+    needs: ["SnykScan", "SonarCloudScan"]
 
     steps:
     - name: Checkout code
