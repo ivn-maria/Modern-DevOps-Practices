@@ -24,9 +24,6 @@ jobs:
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-            sonar.projectKey: ivnmaria
-            sonar.organization: Maria I
          
   SnykScan:
     runs-on: ubuntu-latest
