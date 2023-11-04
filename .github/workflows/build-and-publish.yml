@@ -17,6 +17,9 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+
+    - name: Install Snyk CLI
+      run: npm install -g snyk
       
     - name: Login to Docker Hub
       run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
