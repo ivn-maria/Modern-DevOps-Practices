@@ -9,8 +9,35 @@ env:
   DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
   DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
   SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  SONAR_PROJECT_KEY: ivn-maria
 
 jobs:
+  SonarCloudScan:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install SonarScanner
+      run: |
+          curl -o sonar-scanner-cli.zip -L https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.zip
+          unzip sonar-scanner-cli.zip
+          export PATH="$PATH:$(pwd)/sonar-scanner-cli-5.0.1/bin"
+          
+    - name: Install dependencies
+      run: pip install -r src/requirements.txt
+
+    - name: Run tests
+      run: python -m unittest discover
+
+    - name: SonarCloud Scan
+      run: sonar-scanner
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
+        
   SnykScan:
     runs-on: ubuntu-latest
 
