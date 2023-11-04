@@ -23,7 +23,7 @@ jobs:
         
       - name: Setup SonarScanner
         run: |
-          wdget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.zip
+          wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.zip
           unzip sonar-scanner-cli.zip
           export PATH="$PATH:$(pwd)/sonar-scanner-cli-5.0.1/bin"
 
