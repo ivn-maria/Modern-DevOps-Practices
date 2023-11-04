@@ -21,6 +21,12 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: Install SonarScanner
+      run: |
+          curl -o sonar-scanner-cli.zip -L https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-x.y.z.zip
+          unzip sonar-scanner-cli.zip
+          export PATH="$PATH:$(pwd)/sonar-scanner-cli-x.y.z/bin"
+
     - name: Install dependencies
       run: pip install -r src/requirements.txt
 
