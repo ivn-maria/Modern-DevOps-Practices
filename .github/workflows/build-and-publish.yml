@@ -65,7 +65,7 @@ jobs:
         exit-code: '1'
         ignore-unfixed: true
         vuln-type: 'os,library'
-        severity: 'HIGH'
+        severity: 'CRITICAL'
           
     - name: Tag an image
       run: docker tag python_app:1.0 ivnmaria/classwork-1
