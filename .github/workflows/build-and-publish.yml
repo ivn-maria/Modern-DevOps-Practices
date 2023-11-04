@@ -55,7 +55,7 @@ jobs:
       run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 
     - name: Build Docker image
-      run: docker build -t ivnmaria/classwork-1:latest .
+      run: docker build -t "python_app:1.0" .
 
     - name: Trivy Scan
       uses: aquasecurity/trivy-action@master
@@ -66,6 +66,9 @@ jobs:
         ignore-unfixed: true
         vuln-type: 'os,library'
         severity: 'CRITICAL,HIGH'
+          
+    - name: Tag an image
+      run: docker tag python_app:1.0 ivnmaria/classwork-1
 
     - name: Push Docker image
       run: docker push ivnmaria/classwork-1
