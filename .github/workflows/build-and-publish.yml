@@ -8,6 +8,7 @@ on:
 env:
   DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
   DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
+  SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
 jobs:
   Build:
@@ -22,6 +23,11 @@ jobs:
 
     - name: Build Docker image
       run: docker build -t ivnmaria/classwork-1:latest .
+      
+    - name: Snyk Scan
+      run: snyk test --all-projects
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
     - name: Push Docker image
       run: docker push ivnmaria/classwork-1
