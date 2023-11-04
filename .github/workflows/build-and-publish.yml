@@ -21,7 +21,7 @@ jobs:
       run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 
     - name: Build Docker image
-      run: docker build -t ivnmaria/assignment1:latest .
+      run: docker build -t ivnmaria/classwork-1:latest .
 
     - name: Push Docker image
-      run: docker push ivnmaria/assignment1
+      run: docker push ivnmaria/classwork-1
