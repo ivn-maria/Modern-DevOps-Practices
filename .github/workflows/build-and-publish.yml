@@ -23,9 +23,9 @@ jobs:
 
     - name: Install SonarScanner
       run: |
-          curl -o sonar-scanner-cli.zip -L https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-x.y.z.zip
+          curl -o sonar-scanner-cli.zip -L https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.x.zip
           unzip sonar-scanner-cli.zip
-          export PATH="$PATH:$(pwd)/sonar-scanner-cli-x.y.z/bin"
+          export PATH="$PATH:$(pwd)/sonar-scanner-cli-4.x/bin"
 
     - name: Install dependencies
       run: pip install -r src/requirements.txt
