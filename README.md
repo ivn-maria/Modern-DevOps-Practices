@@ -27,6 +27,9 @@ python3 src/app.py
 - Scan the built Docker image with Trivy as part of the existing workflow
 - Implement a new GitHub workflow with SonarCloud at Merge Request
 
+### Flyway
+Exercices are in [flyway](https://github.com/ivn-maria/Modern-DevOps-Practices/tree/main/flyway)
+
 ### Style 
 - Add a license
 - Add an .editorconfig
