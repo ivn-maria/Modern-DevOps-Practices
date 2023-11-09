@@ -17,13 +17,11 @@ jobs:
       - name: Install dependencies
         run: pip install -r src/requirements.txt 
 
-      - name: Install coverage tool
-        run: pip install coverage
-
-      - name: Run tests and generate coverage
-        run: |
-          coverage run -m pytest
-          coverage xml -i
+      - name: Install tox
+        run: pip install tox
+        
+      - name: Run tox
+        run: tox -e py
         
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@master 
