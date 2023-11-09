@@ -1,4 +1,5 @@
 import unittest
+import socket
 from src.app import app
 
 class TestApp(unittest.TestCase):
