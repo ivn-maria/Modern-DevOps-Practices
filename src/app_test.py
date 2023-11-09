@@ -1,7 +1,15 @@
 import unittest
-from src.app import add
+from src.app import app
 
 class TestApp(unittest.TestCase):
-    def test_add(self):
-        self.assertEqual(add(2, 3), 5)
-        self.assertEqual(add(-1, 1), 0)
+
+    def setUp(self):
+        self.app = app.test_client()
+
+    def test_hello_world(self):
+        response = self.app.get('/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data.decode('utf-8'), 'Hello! I am a Flask application running on YOUR_HOSTNAME_HERE')
+
+if __name__ == '__main__':
+    unittest.main()
