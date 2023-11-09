@@ -28,7 +28,7 @@ python3 src/app.py
 - Implement a new GitHub workflow with SonarCloud at Merge Request
 
 ### Flyway
-Exercices are in ([markdownlint-cli](https://github.com/ivn-maria/Modern-DevOps-Practices/tree/main/flyway))
+Exercices are in ([markdownlint-cli]https://github.com/ivn-maria/Modern-DevOps-Practices/tree/main/flyway)
 
 ### Style 
 - Add a license
