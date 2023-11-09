@@ -44,8 +44,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install gitleaks
-        uses: git-chglog/setup-gitleaks@v7.6.0
-
-      - name: Run gitleaks
-        run: gitleaks
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
