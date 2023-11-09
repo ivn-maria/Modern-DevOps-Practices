@@ -45,7 +45,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install gitleaks
-        run: git-chglog/setup-gitleaks@v7.6.0
+        run: gitleaks/setup-gitleaks@v7.6.0
 
       - name: Run gitleaks check
         run: gitleaks detect
