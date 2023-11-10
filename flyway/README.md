@@ -81,7 +81,7 @@ $ docker run --rm -v "{absolute path to folder to store SQLite db file}:/flyway/
 ```
 
 ### Baseline
-If you want to introduce Flyway to an already existing database with data, you can create a baseline and add newer migarations 
+If you want to introduce Flyway to an already existing database with data, you can create a baseline and add newer migarations
 ```
 $ docker run --rm -v "{absolute path to folder to store SQLite db file}:/flyway/db" -v "{absolute path to folder containing sql migrations}:/flyway/sql" -v "{absolute path to folder containing conf file}:/flyway/conf" redgate/flyway baseline
 ```
