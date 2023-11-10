@@ -45,6 +45,6 @@ Exercices are in [flyway](https://github.com/ivn-maria/Modern-DevOps-Practices/t
 - Run checks in parallel
 - Implement job dependency
 - Practice PR - see results
-  
+ 
 ### Bonus
 - Optimize the size of the Docker image. Use a more minimal base image.
