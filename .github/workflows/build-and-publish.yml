@@ -107,7 +107,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Hardcoded secrets check
-        run: docker run --rm -v "$(pwd):/code" gitleaks/gitleaks
+        uses: gitleaks/gitleaks-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   
