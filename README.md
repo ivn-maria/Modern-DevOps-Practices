@@ -30,7 +30,7 @@ python3 src/app.py
 ### Flyway
 Exercices are in [flyway](https://github.com/ivn-maria/Modern-DevOps-Practices/tree/main/flyway)
 
-### Style 
+### Style
 - Add a license
 - Add an .editorconfig
 - Add a branching strategy (Contributors guide)
