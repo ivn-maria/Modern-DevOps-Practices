@@ -10,7 +10,7 @@ class TestApp(unittest.TestCase):
     def test_hello_world(self):
         response = self.app.get('/')
         self.assertEqual(response.status_code, 200)
-        expected_message = f'Hello! I am a Flask application running on /
+        expected_message = f'Hello! I am a Flask application running on \
 		{socket.gethostname()}'
         self.assertEqual(response.data.decode('utf-8'), expected_message)
 
