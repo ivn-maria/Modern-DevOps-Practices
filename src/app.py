@@ -1,9 +1,13 @@
 import socket
-from flask import Flask
+from flask import Flask, render_template
+from flask_wtf.csrf import CSRFProtect
+
 app = Flask(__name__)
+csrf = CSRFProtect(app)
 
+@app.route('/', methods=['POST'])
+@csrf.exempt
 
-@app.route('/')
 def hello_world():
     return (
         "Hello! I am a Flask application running on {}"
