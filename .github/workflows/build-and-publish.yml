@@ -4,10 +4,6 @@ on:
   push:
     branches:
       - main
-    paths-ignore:
-      - 'README.md'
-      - 'flyway/README.md'
-      - 'CONTRIBUTING.md'
 
 env:
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -70,7 +66,7 @@ jobs:
         run: editorconfig-checker
 
       - name: Markdown files check
-        run: markdownlint .
+        run: markdownlint '!**/*.md'
 
   UnitTests:
     runs-on: ubuntu-latest
