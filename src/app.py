@@ -6,6 +6,7 @@ csrf = CSRFProtect(app)
 
 
 @app.route('/', methods=['POST'])
+@csrf.exempt
 def hello_world():
     return (
         "Hello! I am a Flask application running on {}"
