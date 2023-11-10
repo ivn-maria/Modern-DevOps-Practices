@@ -4,7 +4,6 @@ app = Flask(__name__)
 
 
 @app.route('/', methods=['POST'])
-@csrf.exempt
 def hello_world():
     return (
         "Hello! I am a Flask application running on {}"
