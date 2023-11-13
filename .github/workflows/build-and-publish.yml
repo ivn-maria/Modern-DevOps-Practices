@@ -108,6 +108,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Pull Docker image
+        run: docker pull redgate/flyway
+
       - name: Database Migration Check
         run: |
           docker run --rm \
@@ -118,7 +121,7 @@ jobs:
             -url=jdbc:mysql://localhost:3306/example?autoreconnect=true&allowPublicKeyRetrieval=true \
             -user=flyway -password=123456 \
             validate
-      
+
   HardcodedSecretsCheck:
     runs-on: ubuntu-latest
 
