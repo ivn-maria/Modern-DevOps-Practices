@@ -16,7 +16,7 @@ services:
       - MYSQL_ROOT_PASSWORD=123456
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     ports:
-      - 3306:3306
+      - 3307:3306
     networks:
       - my_network
 
