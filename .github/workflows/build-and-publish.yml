@@ -104,15 +104,6 @@ jobs:
         ports:
           - 3306:3306
 
-      flyway:
-        image: redgate/flyway
-        command: 
-          -url=jdbc:mysql://localhost:3306/example?autoreconnect=true&allowPublicKeyRetrieval=true -user=root -password=root validate
-        volumes:
-          - .:/flyway/sql
-        depends_on:
-          - mysql
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
