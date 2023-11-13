@@ -99,7 +99,7 @@ jobs:
         run: docker pull redgate/flyway
 
       - name: Database migrations check
-        run: docker run --rm -v "$(pwd)/flyway/db:/flyway/db" -v "$(pwd)/flyway/migrations:/flyway/sql" -v "$(pwd)/flyway/config:/flyway/conf" redgate/flyway -url=jdbc:mysql://172.18.0.2:3306/example?autoreconnect=true&allowPublicKeyRetrieval=true -user=flyway -password=123456 -X validate
+        run: docker run --rm -v "$(pwd)/flyway/db:/flyway/db" -v "$(pwd)/flyway/migrations:/flyway/sql" -v "$(pwd)/flyway/config:/flyway/conf" redgate/flyway -X validate
 
   HardcodedSecretsCheck:
     runs-on: ubuntu-latest
