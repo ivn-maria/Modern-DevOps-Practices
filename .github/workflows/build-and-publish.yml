@@ -96,6 +96,9 @@ jobs:
         image: mysql
         env:
           MYSQL_ROOT_PASSWORD: 123456
+          MYSQL_USER: flyway
+          MYSQL_PASSWORD: 123456
+          MYSQL_DATABASE: example
         options: >-
           --health-cmd "mysqladmin ping"
           --health-interval 10s
@@ -118,7 +121,7 @@ jobs:
             -v "$(pwd)/flyway/migrations:/flyway/sql" \
             -v "$(pwd)/flyway/config:/flyway/conf" \
             redgate/flyway \
-            -url="jdbc:mysql://172.17.0.2:3306/example?autoreconnect=true&allowPublicKeyRetrieval=true" \
+            -url="jdbc:mysql://localhost:3306/example?autoreconnect=true&allowPublicKeyRetrieval=true" \
             -user=flyway -password=123456 \
             validate
 
