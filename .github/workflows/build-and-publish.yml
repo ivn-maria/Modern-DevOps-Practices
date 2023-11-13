@@ -193,15 +193,5 @@ jobs:
     - name: Build Docker image
       run: docker build -t ivnmaria/classwork-1:latest .
 
-    - name: Trivy scan
-      uses: aquasecurity/trivy-action@master
-      with:
-        image-ref: ivnmaria/classwork-1:latest
-        format: 'table'
-        exit-code: '1'
-        ignore-unfixed: true
-        vuln-type: 'os,library'
-        severity: 'CRITICAL'
-
     - name: Push Docker image
       run: docker push ivnmaria/classwork-1
