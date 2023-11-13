@@ -1,0 +1,16 @@
+version: '3'
+services:
+  flyway:
+    image: redgate/flyway
+    command: -url=jdbc:mysql://172.17.0.2:3306/example?autoreconnect=true&allowPublicKeyRetrieval=true -schemas=myschema -user=flyway -password=123456 validate
+    volumes:
+      - .:/flyway/sql
+    depends_on:
+      - db
+  db:
+    image: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    ports:
+      - 3306:3306
