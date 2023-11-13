@@ -124,7 +124,7 @@ jobs:
             redgate/flyway \
             -url="jdbc:mysql://localhost:3306/example?autoreconnect=true&allowPublicKeyRetrieval=true" \
             -user=flyway -password=123456 \
-            validate
+            migrate
 
   HardcodedSecretsCheck:
     runs-on: ubuntu-latest
