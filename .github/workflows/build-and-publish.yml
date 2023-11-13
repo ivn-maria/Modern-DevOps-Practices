@@ -91,16 +91,43 @@ jobs:
   DatabaseMigrationsCheck:
     runs-on: ubuntu-latest
 
+    services:
+      mysql:
+        image: mysql
+        env:
+          MYSQL_ROOT_PASSWORD: 123456
+        options: >-
+          --health-cmd "mysqladmin ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 3306:3306
+
+      flyway:
+        image: redgate/flyway
+        command: 
+          -url=jdbc:mysql://localhost:3306/example?autoreconnect=true&allowPublicKeyRetrieval=true -user=root -password=root validate
+        volumes:
+          - .:/flyway/sql
+        depends_on:
+          - mysql
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Pull Docker image
-        run: docker pull redgate/flyway
-
-      - name: Database migrations check
-        run: docker run --rm -v "$(pwd)/flyway/db:/flyway/db" -v "$(pwd)/flyway/migrations:/flyway/sql" -v "$(pwd)/flyway/config:/flyway/conf" redgate/flyway validate
-
+      - name: Database Migration Check
+        run: |
+          docker run --rm \
+            -v "$(pwd)/flyway/db:/flyway/db" \
+            -v "$(pwd)/flyway/migrations:/flyway/sql" \
+            -v "$(pwd)/flyway/config:/flyway/conf" \
+            redgate/flyway \
+            -url=jdbc:mysql://localhost:3306/example?autoreconnect=true&allowPublicKeyRetrieval=true \
+            -user=flyway -password=123456 \
+            validate
+      
   HardcodedSecretsCheck:
     runs-on: ubuntu-latest
 
