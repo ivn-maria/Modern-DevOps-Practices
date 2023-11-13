@@ -105,9 +105,10 @@ jobs:
           -v "$(pwd)/flyway/config:/flyway/conf" \
           redgate/flyway \
           -url="jdbc:mysql://172.18.0.2:3306/example?autoreconnect=true&allowPublicKeyRetrieval=true" \
-          -user=flyway  \
+          -user=flyway \
           -password=123456 \
-          -X validate
+          -X \
+          validate
 
   HardcodedSecretsCheck:
     runs-on: ubuntu-latest
