@@ -95,6 +95,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Set up MySQL
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y mysql-client
+
       - name: Pull Docker image
         run: docker pull redgate/flyway
 
