@@ -99,7 +99,7 @@ jobs:
         run: docker pull redgate/flyway
 
       - name: Database migrations check
-        run: docker run --rm --network my_network -v "$(pwd)/flyway/db:/flyway/db" -v "$(pwd)/flyway/migrations:/flyway/sql" -v "$(pwd)/flyway/config:/flyway/conf" redgate/flyway validate
+        run: docker run --rm -v "$(pwd)/flyway/db:/flyway/db" -v "$(pwd)/flyway/migrations:/flyway/sql" -v "$(pwd)/flyway/config:/flyway/conf" redgate/flyway validate
   HardcodedSecretsCheck:
     runs-on: ubuntu-latest
 
