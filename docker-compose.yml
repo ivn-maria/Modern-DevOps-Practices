@@ -2,7 +2,7 @@ version: '3'
 services:
   flyway:
     image: redgate/flyway
-    command: -url=jdbc:mysql://172.17.0.2:3306/example?autoreconnect=true&allowPublicKeyRetrieval=true -user=flyway -password=123456 validate
+    command: -url=jdbc:mysql://db:3306/example?autoreconnect=true&allowPublicKeyRetrieval=true -user=flyway -password=123456 validate
     volumes:
       - .:/flyway/sql
     depends_on:
