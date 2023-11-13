@@ -158,8 +158,7 @@ jobs:
 
   TrivyScan:
     runs-on: ubuntu-latest
-    needs: ["SnykScan", "SonarCloudScan", "StyleAndLintCheck", "editorconfigCheck", "MakrdownFilesCheck", "UnitTests", "DatabaseMigrationsCheck", "HardcodedSecretsCheck"]
-
+    
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
