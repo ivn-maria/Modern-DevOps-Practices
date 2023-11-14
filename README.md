@@ -9,14 +9,18 @@ Install necessary dependencies
 
 ```bash
 pip3 install -r src/requirements.txt
+
 ```
+
 Start the application
 
 ```bash
 python3 src/app.py
+
 ```
 
 ## Tasks
+
 - Create a new **public** repository and use this one as a template.
 - Containerize the Python application in the `src/` directory. Create a
 Dockerfile and use ubuntu as a base image.
@@ -25,6 +29,7 @@ Dockerfile and use ubuntu as a base image.
 it to your personal DockerHub account on every push to the main branch.
 
 ### Security
+
 - Implement IDE-level code analysis with Snyk (install Snyk plugin for your IDE)
 - Scan the application code with SonarCloud and Snyk as part of the existing
 workflow
@@ -32,10 +37,12 @@ workflow
 - Implement a new GitHub workflow with SonarCloud at Merge Request
 
 ### Flyway
+
 Exercices are in
 [flyway](https://github.com/ivn-maria/Modern-DevOps-Practices/tree/main/flyway)
 
 ### Style
+
 - Add a license
 - Add an .editorconfig
 - Add a branching strategy (Contributors guide)
@@ -45,6 +52,7 @@ Exercices are in
 ([markdownlint-cli](https://www.npmjs.com/package/cli-markdown))
 
 ### Unit tests and database migrations
+
 - Run unit tests (`python3 -m unittest src/app_test.py`)
 - Check for database migrations
 - Check for hardcoded secrets ([gitleaks](https://github.com/gitleaks/gitleaks))
@@ -53,4 +61,5 @@ Exercices are in
 - Practice PR - see results
 
 ### Bonus
+
 - Optimize the size of the Docker image. Use a more minimal base image.
