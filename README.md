@@ -1,6 +1,7 @@
 # Classwork Assignment 1
 
-You are given a Python application and a client has requested your help to run it in a Docker container and automate the process of building the Docker image.
+You are given a Python application and a client has requested your help to run
+it in a Docker container and automate the process of building the Docker image.
 
 ## Start up
 
@@ -9,6 +10,7 @@ Install necessary dependencies
 ```bash
 pip3 install -r src/requirements.txt
 ```
+
 Start the application
 
 ```bash
@@ -42,7 +44,8 @@ python3 src/app.py
 
 ### Containerization
 
-- Containerize the Python application in the `src/` directory. Create a Dockerfile and use ubuntu as a base image
+- Containerize the Python application in the `src/` directory. Create a
+Dockerfile and use ubuntu as a base image
 - Validate locally that the container is working
 - Create a GitHub Actions workflow that builds the Docker image
 - Scan the built Docker image with Trivy as part of the existing workflow
