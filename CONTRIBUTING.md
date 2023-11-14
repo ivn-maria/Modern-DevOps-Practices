@@ -39,6 +39,7 @@ We will then take care of the issue as soon as possible.
 
 <!-- omit in toc -->
 ### Legal Notice
+
 When contributing to this project, you must agree that you have authored 100%
 of the content, that you have the necessary rights to the content and that the
 content you contribute may be provided under the project license.
@@ -60,9 +61,8 @@ using incompatible environment components/versions. If you are looking for
 support, you might want to check [this section](#i-have-a-question)).
 - To see if other users have experienced (and potentially already solved) the
 same issue you are having, check if there is not already a bug report existing
-for your bug or error in the [bug
-tracker](https://github.com/ivn-maria/Modern-DevOps-Practicesissues?q=label%3Abu
-g).
+for your bug or error in the [bugtracker]
+(https://github.com/ivn-maria/Modern-DevOps-Practicesissues?q=label%3Abug).
 - Also make sure to search the internet (including Stack Overflow) to see if
 users outside of the GitHub community have discussed the issue.
 - Collect information about the bug:
