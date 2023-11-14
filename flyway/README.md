@@ -10,21 +10,18 @@ Start up a database (we are going to use Docker to reduce OS overhead)
 ```
 $ docker run --name mysql -e MYSQL_USER=flyway -e MYSQL_PASSWORD=123456 -e
 MYSQL_DATABASE=example -e MYSQL_ROOT_PASSWORD=123456 -p 3306:3306 -d mysql:8.1
-
 ```
 
 Create a Flyway config directory
 
 ```
 $ mkdir -p ~/flyway/config
-
 ```
 
 Get the IP of the mysql container
 
 ```
 $ docker inspect mysql | grep IPAddress
-
 ```
 
 Create a file there named `flyway.conf`
@@ -36,21 +33,18 @@ container>>:3306/example?autoreconnect=true&allowPublicKeyRetrieval=true
 flyway.user=flyway
 flyway.password=123456
 flyway.cleanDisabled=false
-
 ```
 
 Create a migrations directory
 
 ```
 $ mkdir -p ~/flyway/migrations
-
 ```
 
 Create a database file directory
 
 ```
 $ mkdir -p ~/flyway/db
-
 ```
 
 ### Create a migration
@@ -62,7 +56,6 @@ create table PERSON (
     ID int not null,
     NAME varchar(100) not null
 );
-
 ```
 
 Run the migration
@@ -72,7 +65,6 @@ $ docker run --rm -v "{absolute path to folder to store SQLite db
 file}:/flyway/db" -v "{absolute path to folder containing sql
 migrations}:/flyway/sql" -v "{absolute path to folder containing conf
 file}:/flyway/conf" redgate/flyway migrate
-
 ```
 
 ### Verify the migration was successful
@@ -84,7 +76,6 @@ $ docker run --rm -v "{absolute path to folder to store SQLite db
 file}:/flyway/db" -v "{absolute path to folder containing sql
 migrations}:/flyway/sql" -v "{absolute path to folder containing conf
 file}:/flyway/conf" redgate/flyway info
-
 ```
 
 ### Create a new migration
@@ -98,7 +89,6 @@ create table email (
   email_type        char(1) not null,
   person_id         int not null
 );
-
 ```
 
 Run the new migration
@@ -108,7 +98,6 @@ $ docker run --rm -v "{absolute path to folder to store SQLite db
 file}:/flyway/db" -v "{absolute path to folder containing sql
 migrations}:/flyway/sql" -v "{absolute path to folder containing conf
 file}:/flyway/conf" redgate/flyway migrate
-
 ```
 
 ### Clean up the database
@@ -120,7 +109,6 @@ $ docker run --rm -v "{absolute path to folder to store SQLite db
 file}:/flyway/db" -v "{absolute path to folder containing sql
 migrations}:/flyway/sql" -v "{absolute path to folder containing conf
 file}:/flyway/conf" redgate/flyway clean
-
 ```
 
 You can then apply all migrations with the `migrate` command
@@ -134,7 +122,6 @@ $ docker run --rm -v "{absolute path to folder to store SQLite db
 file}:/flyway/db" -v "{absolute path to folder containing sql
 migrations}:/flyway/sql" -v "{absolute path to folder containing conf
 file}:/flyway/conf" redgate/flyway validate
-
 ```
 
 ### Baseline
@@ -147,5 +134,4 @@ $ docker run --rm -v "{absolute path to folder to store SQLite db
 file}:/flyway/db" -v "{absolute path to folder containing sql
 migrations}:/flyway/sql" -v "{absolute path to folder containing conf
 file}:/flyway/conf" redgate/flyway baseline
-
 ```
