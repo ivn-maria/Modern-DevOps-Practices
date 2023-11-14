@@ -12,6 +12,24 @@ env:
   DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
 
 jobs:
+  StyleAndLintCheck:
+      runs-on: ubuntu-latest
+
+      steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.8
+
+      - name: Install flake8
+        run: pip install flake8
+
+      - name: Style & lint check
+        run: flake8
+
   editorconfigCheck:
       runs-on: ubuntu-latest
 
@@ -38,24 +56,6 @@ jobs:
       - name: Markdown files check
         run: markdownlint '**/*.md'
 
-  StyleAndLintCheck:
-      runs-on: ubuntu-latest
-
-      steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Python
-        uses: actions/setup-python@v3
-        with:
-          python-version: 3.8
-
-      - name: Install flake8
-        run: pip install flake8
-
-      - name: Style & lint check
-        run: flake8
-
   UnitTests:
     runs-on: ubuntu-latest
 
@@ -76,6 +76,36 @@ jobs:
       - name: Unit tests run
         run: python3 -m unittest tests/app_test.py
 
+  SonarCloudScan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: SonarCloud scan
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  SnykScan:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install dependecies
+      run: |
+        npm install -g snyk@latest
+        pip install -r src/requirements.txt
+
+    - name: Snyk scan
+      run: snyk test --all-projects
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
   HardcodedSecretsCheck:
     runs-on: ubuntu-latest
 
@@ -87,6 +117,20 @@ jobs:
         uses: gitleaks/gitleaks-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  SAST:
+      runs-on: ubuntu-latest
+      needs: ["StyleAndLintCheck", "editorconfigCheck", "MakrdownFilesCheck", "UnitTests", "SonarCloudScan", "SnykScan", "HardcodedSecretsCheck"]
+      
+      steps:
+        - run: echo "SAST"
+
+  SCA:
+      runs-on: ubuntu-latest
+      needs: ["StyleAndLintCheck", "editorconfigCheck", "MakrdownFilesCheck", "UnitTests", "SonarCloudScan", "SnykScan", "HardcodedSecretsCheck"]
+      
+      steps:
+        - run: echo "SCA"
 
   DatabaseMigrationsCheck:
     runs-on: ubuntu-latest
@@ -126,36 +170,6 @@ jobs:
             -user=flyway -password=123456 \
             migrate
 
-  SnykScan:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-
-    - name: Install dependecies
-      run: |
-        npm install -g snyk@latest
-        pip install -r src/requirements.txt
-
-    - name: Snyk scan
-      run: snyk test --all-projects
-      env:
-        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-
-  SonarCloudScan:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: SonarCloud scan
-        uses: sonarsource/sonarcloud-github-action@master
-        env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
   TrivyScan:
     runs-on: ubuntu-latest
 
@@ -181,7 +195,7 @@ jobs:
 
   BuildAndPublish:
     runs-on: ubuntu-latest
-    needs: ["SnykScan", "SonarCloudScan", "StyleAndLintCheck", "editorconfigCheck", "MakrdownFilesCheck", "UnitTests", "DatabaseMigrationsCheck", "HardcodedSecretsCheck", "TrivyScan"]
+    needs: ["SAST", "SCA", "DatabaseMigrationsCheck", "TrivyScan"]
 
     steps:
     - name: Checkout code
