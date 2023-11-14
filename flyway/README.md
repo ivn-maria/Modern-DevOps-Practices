@@ -20,7 +20,7 @@ $ docker inspect mysql | grep IPAddress
 Create a file there named `flyway.conf`
 ```
 flyway.driver=com.mysql.jdbc.Driver
-flyway.url=jdbc:mysql://<<IP address of the mysql 
+flyway.url=jdbc:mysql://<<IP address of the mysql
 container>>:3306/example?autoreconnect=true&allowPublicKeyRetrieval=true
 flyway.user=flyway
 flyway.password=123456
