@@ -15,18 +15,18 @@ MYSQL_DATABASE=example -e MYSQL_ROOT_PASSWORD=123456 -p 3306:3306 -d mysql:8.1
 Create a Flyway config directory
 
 ```bash
-$ mkdir -p ~/flyway/config
+mkdir -p ~/flyway/config
 ```
 
 Get the IP of the mysql container
 
 ```bash
-$ docker inspect mysql | grep IPAddress
+docker inspect mysql | grep IPAddress
 ```
 
 Create a file there named `flyway.conf`
 
-```
+```text
 flyway.driver=com.mysql.jdbc.Driver
 flyway.url=jdbc:mysql://<<IP address of the mysql
 container>>:3306/example?autoreconnect=true&allowPublicKeyRetrieval=true
@@ -38,13 +38,13 @@ flyway.cleanDisabled=false
 Create a migrations directory
 
 ```bash
-$ mkdir -p ~/flyway/migrations
+mkdir -p ~/flyway/migrations
 ```
 
 Create a database file directory
 
 ```bash
-$ mkdir -p ~/flyway/db
+mkdir -p ~/flyway/db
 ```
 
 ### Create a migration
