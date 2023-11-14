@@ -118,22 +118,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  SAST:
-      runs-on: ubuntu-latest
-      needs: ["StyleAndLintCheck", "editorconfigCheck", "MakrdownFilesCheck", "UnitTests", "SonarCloudScan", "SnykScan", "HardcodedSecretsCheck"]
-      
-      steps:
-        - run: echo "SAST"
-
-  SCA:
-      runs-on: ubuntu-latest
-      needs: ["StyleAndLintCheck", "editorconfigCheck", "MakrdownFilesCheck", "UnitTests", "SonarCloudScan", "SnykScan", "HardcodedSecretsCheck"]
-      
-      steps:
-        - run: echo "SCA"
-
   DatabaseMigrationsCheck:
     runs-on: ubuntu-latest
+    needs: ["StyleAndLintCheck", "editorconfigCheck", "MakrdownFilesCheck", "UnitTests", "SonarCloudScan", "SnykScan", "HardcodedSecretsCheck"]
 
     services:
       mysql:
@@ -161,41 +148,42 @@ jobs:
       - name: Database Migration Check
         run: |
           docker run --rm \
-            --net="host" \
-            -v "$(pwd)/flyway/db:/flyway/db" \
-            -v "$(pwd)/flyway/migrations:/flyway/sql" \
-            -v "$(pwd)/flyway/config:/flyway/conf" \
-            redgate/flyway \
-            -url="jdbc:mysql://localhost:3306/example?autoreconnect=true&allowPublicKeyRetrieval=true" \
-            -user=flyway -password=123456 \
-            migrate
+          --net="host" \
+          -v "$(pwd)/flyway/db:/flyway/db" \
+          -v "$(pwd)/flyway/migrations:/flyway/sql" \
+          -v "$(pwd)/flyway/config:/flyway/conf" \
+          redgate/flyway \
+          -url="jdbc:mysql://localhost:3306/example?autoreconnect=true&allowPublicKeyRetrieval=true" \
+          -user=flyway -password=123456 \
+          migrate
 
   TrivyScan:
     runs-on: ubuntu-latest
+    needs: ["StyleAndLintCheck", "editorconfigCheck", "MakrdownFilesCheck", "UnitTests", "SonarCloudScan", "SnykScan", "HardcodedSecretsCheck"]
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Login to Docker Hub
-      run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+      - name: Login to Docker Hub
+        run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 
-    - name: Build Docker image
-      run: docker build -t ivnmaria/classwork-1:latest .
+      - name: Build Docker image
+        run: docker build -t ivnmaria/classwork-1:latest .
 
-    - name: Trivy scan
-      uses: aquasecurity/trivy-action@master
-      with:
-        image-ref: ivnmaria/classwork-1:latest
-        format: 'table'
-        exit-code: '1'
-        ignore-unfixed: true
-        vuln-type: 'os,library'
-        severity: 'CRITICAL'
+      - name: Trivy scan
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ivnmaria/classwork-1:latest
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL'
 
   BuildAndPublish:
     runs-on: ubuntu-latest
-    needs: ["SAST", "SCA", "DatabaseMigrationsCheck", "TrivyScan"]
+    needs: ["DatabaseMigrationsCheck", "TrivyScan"]
 
     steps:
     - name: Checkout code
