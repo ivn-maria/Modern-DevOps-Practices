@@ -1,6 +1,6 @@
 # Classwork Assignment
 
-You are given a Python application and a client has requested your help to run 
+You are given a Python application and a client has requested your help to run
 it in a Docker container and automate the process of building the Docker image.
 
 ## Start up
@@ -18,21 +18,21 @@ python3 src/app.py
 
 ## Tasks
 - Create a new **public** repository and use this one as a template.
-- Containerize the Python application in the `src/` directory. Create a 
+- Containerize the Python application in the `src/` directory. Create a
 Dockerfile and use ubuntu as a base image.
 - Validate locally that the container is working.
-- Create a GitHub Actions workflow that builds the Docker image and publishes 
+- Create a GitHub Actions workflow that builds the Docker image and publishes
 it to your personal DockerHub account on every push to the main branch.
 
 ### Security
 - Implement IDE-level code analysis with Snyk (install Snyk plugin for your IDE)
-- Scan the application code with SonarCloud and Snyk as part of the existing 
+- Scan the application code with SonarCloud and Snyk as part of the existing
 workflow
 - Scan the built Docker image with Trivy as part of the existing workflow
 - Implement a new GitHub workflow with SonarCloud at Merge Request
 
 ### Flyway
-Exercices are in 
+Exercices are in
 [flyway](https://github.com/ivn-maria/Modern-DevOps-Practices/tree/main/flyway)
 
 ### Style
@@ -41,7 +41,7 @@ Exercices are in
 - Add a branching strategy (Contributors guide)
 - Check code style & lint with `flake8`
 - Check .editorconfig with `editorconfig-checker`
-- Check makrdown files 
+- Check makrdown files
 ([markdownlint-cli](https://www.npmjs.com/package/cli-markdown))
 
 ### Unit tests and database migrations
