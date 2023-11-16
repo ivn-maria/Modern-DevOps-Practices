@@ -1,0 +1,24 @@
+version: '3.9'
+
+services:
+  mysql:
+    container_name: mysql
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: example
+      MYSQL_USER: flyway
+      MYSQL_PASSWORD: 123456
+    ports:
+      - "3306:3306"
+
+  flyway:
+    container_name: flyway
+    image: redgate/flyway
+    command: --net="host" migrate
+    volumes:
+      - /Users/mariaivanova/Modern-DevOps-Practices/flyway/db:/flyway/db
+      - /Users/mariaivanova/Modern-DevOps-Practices/flyway/migrations:/flyway/sql
+      - /Users/mariaivanova/Modern-DevOps-Practices/flyway/config:/flyway/conf
+    depends_on:
+      - mysql
