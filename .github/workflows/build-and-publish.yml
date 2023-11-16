@@ -192,7 +192,10 @@ jobs:
         run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 
       - name: Build Docker image
-        run: docker build -t ivnmaria/modern-devops-practices:${{ github.sha }} .
+        run: docker build -t image:${{ github.sha }} .
 
-      - name: Push an image to DockerHub
+      - name: Tag Docker image
+        run: docker tag image:${{ github.sha }} ivnmaria/modern_devops_practices:${{ github.sha }}
+
+      - name: Push Docker image
         run: docker push ivnmaria/modern_devops_practices:${{ github.sha }}
