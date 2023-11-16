@@ -74,7 +74,7 @@ jobs:
           pip install flask-wtf
 
       - name: Unit tests run
-        run: python3 -m unittest tests/app_test.py
+        run: python3 -m unittest src/app_test.py
 
   HardcodedSecretsCheck:
     runs-on: ubuntu-latest
