@@ -193,6 +193,6 @@ jobs:
 
       - name: Build Docker image
         run: docker build -t ivnmaria/modern-devops-practices:${{ github.sha }} .
-        
+
       - name: Push an image to DockerHub
         run: docker push ivnmaria/modern_devops_practices:${{ github.sha }}
