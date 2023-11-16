@@ -1,4 +1,5 @@
-FROM python:3.8-alpine
+FROM openssl/libcrypto3@3.1.4-r1
+#FROM python:3.8-alpine
 
 COPY src/requirements.txt /usr/src/app/
 
