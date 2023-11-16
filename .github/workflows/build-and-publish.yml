@@ -58,7 +58,6 @@ jobs:
 
   UnitTests:
     runs-on: ubuntu-latest
-    needs: ["StyleAndLintCheck", "editorconfigCheck", "MakrdownFilesCheck"]
 
     steps:
       - name: Checkout code
@@ -77,41 +76,8 @@ jobs:
       - name: Unit tests run
         run: python3 -m unittest tests/app_test.py
 
-  SonarCloudScan:
-    runs-on: ubuntu-latest
-    needs: ["StyleAndLintCheck", "editorconfigCheck", "MakrdownFilesCheck"]
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: SonarCloud scan
-        uses: sonarsource/sonarcloud-github-action@master
-        env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-  SnykScan:
-    runs-on: ubuntu-latest
-    needs: ["StyleAndLintCheck", "editorconfigCheck", "MakrdownFilesCheck"]
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-
-    - name: Install dependecies
-      run: |
-        npm install -g snyk@latest
-        pip install -r src/requirements.txt
-
-    - name: Snyk scan
-      run: snyk test --all-projects
-      env:
-        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-
   HardcodedSecretsCheck:
     runs-on: ubuntu-latest
-    needs: ["StyleAndLintCheck", "editorconfigCheck", "MakrdownFilesCheck"]
 
     steps:
       - name: Checkout code
@@ -124,7 +90,7 @@ jobs:
 
   DatabaseMigrationsCheck:
     runs-on: ubuntu-latest
-    needs: ["UnitTests", "SonarCloudScan", "SnykScan", "HardcodedSecretsCheck"]
+    needs: ["StyleAndLintCheck", "editorconfigCheck", "MakrdownFilesCheck", "UnitTests", "HardcodedSecretsCheck"]
 
     services:
       mysql:
@@ -160,7 +126,7 @@ jobs:
 
   TrivyScan:
     runs-on: ubuntu-latest
-    needs: ["DatabaseMigrationsCheck"]
+    needs: ["StyleAndLintCheck", "editorconfigCheck", "MakrdownFilesCheck", "UnitTests", "HardcodedSecretsCheck"]
 
     steps:
       - name: Checkout code
@@ -182,9 +148,41 @@ jobs:
           vuln-type: 'os,library'
           severity: 'CRITICAL'
 
-  BuildAndPublish:
+  SonarCloudScan:
     runs-on: ubuntu-latest
-    needs: ["TrivyScan"]
+    needs: ["DatabaseMigrationsCheck", "TrivyScan"]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: SonarCloud scan
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  SnykScan:
+    runs-on: ubuntu-latest
+    needs: ["DatabaseMigrationsCheck", "TrivyScan"]
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install dependecies
+      run: |
+        npm install -g snyk@latest
+        pip install -r src/requirements.txt
+
+    - name: Snyk scan
+      run: snyk test --all-projects
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+  BuildAndPublishDockerImage:
+    runs-on: ubuntu-latest
+    needs: ["SnykScan", "SonarCloudScan"]
 
     steps:
       - name: Checkout code
