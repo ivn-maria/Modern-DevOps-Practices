@@ -15,7 +15,7 @@ services:
   flyway:
     container_name: flyway
     image: redgate/flyway
-    command: --net="host" migrate
+    command: -v url=jdbc:mysql://mysql:3306/example?autoreconnect=true&allowPublicKeyRetrieval=true migrate
     volumes:
       - /Users/mariaivanova/Modern-DevOps-Practices/flyway/db:/flyway/db
       - /Users/mariaivanova/Modern-DevOps-Practices/flyway/migrations:/flyway/sql
