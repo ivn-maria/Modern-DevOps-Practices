@@ -1,4 +1,4 @@
-# Classwork Assignment 1
+# Classwork Assignment
 
 You are given a Python application and a client has requested your help to run
 it in a Docker container and automate the process of building the Docker image.
